@@ -1,0 +1,12 @@
+Package: ggstars
+Type: Package
+Title: Add significance symbols to your ggplots.
+Version: 0.1
+Date: 2016-07-20
+Author: Héctor Climente <hector.climente@upf.edu>
+Maintainer: Hector Climente <hector.climente@upf.edu>
+Depends:
+    R (>= 3.0.0),
+    ggplot2
+Description: Add significance symbols to your ggplots.
+License: MIT
