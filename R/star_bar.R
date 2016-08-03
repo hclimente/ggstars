@@ -1,4 +1,4 @@
-#' star_bar
+#' geom_bar significance
 #' 
 #' Adds significance marks to a ggplot with a geom_bar.
 #' 

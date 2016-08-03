@@ -2,7 +2,7 @@
 % Please edit documentation in R/star_bar.R
 \name{star_bar}
 \alias{star_bar}
-\title{star_bar}
+\title{geom_bar significance}
 \usage{
 star_bar(gg, significance)
 }
