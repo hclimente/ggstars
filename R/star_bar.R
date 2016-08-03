@@ -1,23 +1,21 @@
-#' geom_bar significance
+#' star_bar
 #' 
-#' Creates the ggplot layer to display a significance measure on a geom_bar.
+#' Adds significance marks to a ggplot with a geom_bar.
 #' 
-#' @name geom_bar_star
+#' @name star_bar
 #' 
-#' @param categories all factors to be plotted
-#' @param ranges contains the data for the categories for which an arc will be drawn
-#' @param barsize
-#' @param pairAxis
-#' @return geom_bar_star
+#' @param gg ggplot with a geom_bar to add significance marks.
+#' @param significance logical vector with the significant pairs.
+#' @return gg ggplot with the geom_bar and the significance marks.
 star_bar <- function(gg, significance){
   
-	pg <- ggplot_build(p)
+	pg <- ggplot_build(gg)
 
 	data <- pg$data[[1]]
 	data$x.arc <- (data$xmax + data$xmin)/2
 	data$y.arc <- data$ymax
 	    
-	if ( nrow(data) == 4*length(significant) & sum(data$y.arc==max(data$y.arc)) == 0.5*nrow(data)){
+	if ( nrow(data) == 4*length(significance) & sum(data$y.arc==max(data$y.arc)) == 0.5*nrow(data)){
 	    data <- data[data$y.arc!=max(data$y.arc),]
 	}
 
@@ -52,7 +50,10 @@ star_bar <- function(gg, significance){
 	    
 	}
 
-	p + geom_text(data=ast, aes(x=x_ast,y=y_ast,label='*'), size = 15, inherit.aes = F) + 
-	geom_line(data=arcs, aes(x_arc,y_arc, group=group), inherit.aes = F)
+	gg <- gg + 
+    geom_text(data=ast, aes(x=x_ast,y=y_ast,label='*'), size = 15, inherit.aes = F) + 
+    geom_line(data=arcs, aes(x_arc,y_arc, group=group), inherit.aes = F)
+  
+  return(gg)
 	       
 }
