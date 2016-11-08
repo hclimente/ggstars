@@ -7,7 +7,7 @@ Install it directly from GitHub:
 
 ```{r}
 library(devtools)
-install_github("hclimente/ggstars")
+devtools::install_github("hclimente/ggstars")
 ```
 
 ## Usage
