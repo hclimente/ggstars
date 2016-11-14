@@ -3,10 +3,9 @@ Easily add significance marks to your ggplots.
 
 ## Install
 
-Install it directly from GitHub:
+Install it from GitHub:
 
 ```{r}
-library(devtools)
 devtools::install_github("hclimente/ggstars")
 ```
 
