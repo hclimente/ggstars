@@ -3,11 +3,10 @@ Easily add significance marks to your ggplots.
 
 ## Install
 
-Install it directly from GitHub:
+Install it from GitHub:
 
 ```{r}
-library(devtools)
-install_github("hclimente/ggstars")
+devtools::install_github("hclimente/ggstars")
 ```
 
 ## Usage
@@ -39,3 +38,26 @@ p
 star_bar(p, driver.enrichment$p < 0.05)
 ```
 ![barexample after adding significance symbols](barexample_post.png)
+
+### On a boxplot
+
+```{r}
+library(ggstars)
+data(boxexample)
+
+> head(isoform.lengths)
+#   Tumor IsoformOrigin Length
+# 1  brca        Normal    341
+# 2  brca        Normal    266
+# 3  brca        Normal    340
+# 4  brca        Normal    773
+# 5  brca        Normal    272
+# 6  brca        Normal    925
+
+p
+```
+![boxexample before adding significance symbols](boxexample_pre.png)
+```{r}
+star_box(p, p.vals$p < 0.05)
+```
+![boxexample after adding significance symbols](boxexample_post.png)
