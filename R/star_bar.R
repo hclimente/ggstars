@@ -6,8 +6,10 @@
 #' 
 #' @param gg ggplot with a geom_bar to add significance marks.
 #' @param significance logical vector with the significant pairs.
+#' @param fit logical value indicating if the arc should fit the shape of the data.
+#' @param dist numerical value indicating the distance from the arc to the data.
 #' @return gg ggplot with the geom_bar and the significance marks.
-star_bar <- function(gg, significance){
+star_bar <- function(gg, significance, fit = TRUE, dist = 0){
   
 	pg <- ggplot_build(gg)
 
@@ -20,39 +22,15 @@ star_bar <- function(gg, significance){
 	}
 
 	data <- data[as.vector(rbind(significance,significance)),]
-	    
-	# create base arc
-	## half circunference
-	r <- 0.5
-	t <- seq(0, 180, by = 1) * pi / 180
-	x <- r * cos(t)
-	y <- 1 * sin(t)
-	  
-	## flatten it, proportionally to the data
-	minStep <- max(data$y.arc)/40
-	y[which(y>minStep)] <- minStep
-	modelArc <- data.frame(x = x, y = y)
 
-	arcs <- data.frame()
-	ast <- data.frame()
-	for (i in seq(1,nrow(data),2)){
-	    bar.pair <- data[c(i,i+1),]
-	    center.arc <- mean(bar.pair$x.arc)
-	    height.arc <- max(bar.pair$y.arc)
-	    
-	    this.arc <- data.frame(x_arc = modelArc$x + center.arc, y_arc= modelArc$y + height.arc, group=i)
-	    this.arc <- rbind(this.arc,data.frame(x_arc = bar.pair$x.arc[bar.pair$y.arc == min(bar.pair$y.arc)], 
-	                                          y_arc = min(bar.pair$y.arc), group=i ))
-	    arcs <- rbind(arcs,this.arc)
-	    
-	    tmp_ast <- data.frame(x_ast = center.arc, y_ast = height.arc + 1.2 * minStep)
-	    ast <- rbind(ast,tmp_ast)
-	    
-	}
+	min_step <- max(data$y.arc)/40
+	model_arc <- create_model_arc(min_step, 0.5)
 
+	plot_symbols <- get_arcs_and_symbols(data, model_arc, min_step, fit, dist)
+	
 	gg <- gg + 
-    geom_text(data=ast, aes(x=x_ast,y=y_ast,label='*'), size = 15, inherit.aes = F) + 
-    geom_line(data=arcs, aes(x_arc,y_arc, group=group), inherit.aes = F)
+	  geom_text(data=plot_symbols$asterisks, aes(x=x_ast,y=y_ast,label='*'), size = 15, inherit.aes = F) + 
+	  geom_line(data=plot_symbols$arcs, aes(x_arc,y_arc, group=group), inherit.aes = F)
   
   return(gg)
 	       
