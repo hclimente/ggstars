@@ -2,7 +2,7 @@
 #' 
 #' Adds significance marks to a ggplot with a geom_boxplot.
 #' 
-#' @name star_boxplot
+#' @name star_box
 #' 
 #' @param gg ggplot with a geom_boxplot to add significance marks.
 #' @param significance logical vector with the significant pairs.
@@ -10,7 +10,7 @@
 #' @param fit logical value indicating if the arc should fit the shape of the data.
 #' @param dist numerical value indicating the distance from the arc to the data.
 #' @return gg ggplot with the geom_boxplot and the significance marks.
-star_boxplot <- function(gg,significance,rm.outliers=TRUE, fit = FALSE, dist = 0.05){
+star_box <- function(gg,significance,rm.outliers=TRUE, fit = FALSE, dist = 0.05){
   
   pg <- ggplot_build(gg)
   
