@@ -1,7 +1,7 @@
 Package: ggstars
 Type: Package
 Title: Add significance symbols to your ggplots.
-Version: 0.1
+Version: 0.2
 Date: 2016-07-20
 Author: Héctor Climente <hector.climente@upf.edu>
 Maintainer: Hector Climente <hector.climente@upf.edu>
@@ -10,3 +10,4 @@ Depends:
     ggplot2
 Description: Add significance symbols to your ggplots.
 License: MIT
+RoxygenNote: 5.0.1
