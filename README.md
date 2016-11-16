@@ -11,6 +11,8 @@ devtools::install_github("hclimente/ggstars")
 
 ## Usage
 
+ggstars displays significance marks of pairwise comparisons in ggplot. It expects a vector with the significantly different comparisons in the same order as they are plotted.
+
 ### On a barplot
 
 ```{r}
