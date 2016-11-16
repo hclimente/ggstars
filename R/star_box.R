@@ -15,13 +15,13 @@ star_box <- function(gg,significance,rm.outliers=TRUE, fit = FALSE, dist = 0.05)
   pg <- ggplot_build(gg)
   
   data <- pg$data[[1]]
+  data <- data[rep(significance, each = 2),]
   data$x.arc <- (data$xmax + data$xmin)/2
-  data$y.arc <- data$ymax
-  
+
   if (rm.outliers){
-    data <- data[rep(significance, each = 2),]
+    data$y.arc <- data$ymax
   } else {
-    plotRanges <- ddply(ranges, .(group), summarise, y=max(y))
+    data$y.arc <- data$ymax_final
   }
   
   min_step <- max(data$y.arc)/60
