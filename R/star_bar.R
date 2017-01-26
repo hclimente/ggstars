@@ -9,7 +9,7 @@
 #' @param fit logical value indicating if the arc should fit the shape of the data.
 #' @param dist numerical value indicating the distance from the arc to the data.
 #' @return gg ggplot with the geom_bar and the significance marks.
-star_bar <- function(gg, significance, fit = TRUE, dist = 0){
+star_bar <- function(gg, significance, fit = FALSE, dist = 0){
   
 	pg <- ggplot_build(gg)
 
@@ -24,7 +24,7 @@ star_bar <- function(gg, significance, fit = TRUE, dist = 0){
 	data <- data[as.vector(rbind(significance,significance)),]
 
 	min_step <- max(data$y.arc)/40
-	model_arc <- create_model_arc(min_step, 0.5)
+	model_arc <- create_model_arc(min_step, 0.45)
 
 	plot_symbols <- get_arcs_and_symbols(data, model_arc, min_step, fit, dist)
 	
