@@ -7,9 +7,10 @@
 #' @param gg ggplot with a geom_bar to add significance marks.
 #' @param significance logical vector with the significant pairs.
 #' @param fit logical value indicating if the arc should fit the shape of the data.
-#' @param dist numerical value indicating the distance from the arc to the data.
+#' @param arc.separation numerical value indicating the distance from the arc to the data.
+#' @param arc.radius numerical value indicating radius of the arc.
 #' @return gg ggplot with the geom_bar and the significance marks.
-star_bar <- function(gg, significance, fit = FALSE, dist = 0){
+star_bar <- function(gg, significance, fit = FALSE, arc.separation = 0, arc.radius = 0.45){
   
 	pg <- ggplot_build(gg)
 
@@ -24,9 +25,9 @@ star_bar <- function(gg, significance, fit = FALSE, dist = 0){
 	data <- data[as.vector(rbind(significance,significance)),]
 
 	min_step <- max(data$y.arc)/40
-	model_arc <- create_model_arc(min_step, 0.45)
+	model_arc <- create_model_arc(min_step, arc.radius)
 
-	plot_symbols <- get_arcs_and_symbols(data, model_arc, min_step, fit, dist)
+	plot_symbols <- get_arcs_and_symbols(data, model_arc, min_step, fit, arc.separation)
 	
 	gg <- gg + 
 	  geom_text(data=plot_symbols$asterisks, aes(x=x_ast,y=y_ast,label='*'), size = 15, inherit.aes = F) + 
