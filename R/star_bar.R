@@ -9,8 +9,9 @@
 #' @param fit logical value indicating if the arc should fit the shape of the data.
 #' @param arc.separation numerical value indicating the distance from the arc to the data.
 #' @param arc.radius numerical value indicating radius of the arc.
+#' @param size numerical value indicating the size of the asterisk.
 #' @return gg ggplot with the geom_bar and the significance marks.
-star_bar <- function(gg, significance, fit = FALSE, arc.separation = 0, arc.radius = 0.45){
+star_bar <- function(gg, significance, fit = FALSE, arc.separation = 0, arc.radius = 0.45, size = 15){
   
 	pg <- ggplot_build(gg)
 
@@ -30,7 +31,7 @@ star_bar <- function(gg, significance, fit = FALSE, arc.separation = 0, arc.radi
 	plot_symbols <- get_arcs_and_symbols(data, model_arc, min_step, fit, arc.separation)
 	
 	gg <- gg + 
-	  geom_text(data=plot_symbols$asterisks, aes(x=x_ast,y=y_ast,label='*'), size = 15, inherit.aes = F) + 
+	  geom_text(data=plot_symbols$asterisks, aes(x=x_ast,y=y_ast,label='*'), size = size, inherit.aes = F) + 
 	  geom_line(data=plot_symbols$arcs, aes(x_arc,y_arc, group=group), inherit.aes = F)
   
   return(gg)
